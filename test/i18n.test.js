@@ -1,7 +1,7 @@
 'use strict';
 
 require('egg-mock');
-const mm = require('mm');
+const mm = require('egg-mock');
 const should = require('should');
 const pedding = require('pedding');
 const join = require('path').join;
