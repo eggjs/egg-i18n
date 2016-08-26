@@ -1,6 +1,6 @@
 {
   "name": "egg-i18n",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "i18n plugin for egg",
   "main": "index.js",
   "scripts": {
