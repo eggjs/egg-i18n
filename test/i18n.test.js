@@ -1,8 +1,7 @@
 'use strict';
 
-require('egg-mock');
 const mm = require('egg-mock');
-const should = require('should');
+const assert = require('assert');
 const pedding = require('pedding');
 const join = require('path').join;
 const request = require('supertest');
@@ -144,17 +143,16 @@ describe('test/i18n.test.js', () => {
           .expect('<li>Email: </li>\n<li>Hello fengmk2, how are you today?</li>\n<li>foo bar</li>\n', done);
       });
 
-      it('should render with cookie locale: zh-cn', function(done) {
-        request(app.callback())
+      it('should render with cookie locale: zh-cn', () => {
+        return request(app.callback())
           .get('/renderString')
           .set('Cookie', 'locale=zh-cn')
           .expect(200)
-          .expect('<li>邮箱: </li>\n<li>fengmk2，今天过得如何？</li>\n<li>foo bar</li>\n', function(err, res) {
-            should.not.exist(err);
-            // cookie 已存在，不需要修改
+          .expect('<li>邮箱: </li>\n<li>fengmk2，今天过得如何？</li>\n<li>foo bar</li>\n')
+          .expect(res => {
+            // cookie should not change
             const setCookies = res.headers['set-cookie'] || [];
-            setCookies.join(',').should.not.containEql('locale=');
-            done();
+            assert(!setCookies.join(',').includes('locale='));
           });
       });
     });

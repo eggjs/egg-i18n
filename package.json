@@ -1,13 +1,17 @@
 {
   "name": "egg-i18n",
   "version": "1.0.2",
+  "eggPlugin": {
+    "name": "i18n"
+  },
   "description": "i18n plugin for egg",
   "main": "index.js",
   "scripts": {
     "lint": "eslint lib test *.js",
     "test": "npm run lint && egg-bin test",
     "cov": "egg-bin cov",
-    "ci": "npm run lint && npm run cov"
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod"
   },
   "repository": {
     "type": "git",
@@ -24,7 +28,7 @@
   },
   "homepage": "https://github.com/eggjs/egg-i18n#readme",
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 6.0.0"
   },
   "files": [
     "app",
@@ -32,23 +36,21 @@
     "app.js"
   ],
   "ci": {
-    "version": "4, 6"
-  },
-  "devDependencies": {
-    "egg": "test",
-    "egg-bin": "1",
-    "egg-mock": "*",
-    "eslint": "3",
-    "eslint-config-egg": "3",
-    "pedding": "1",
-    "should": "10",
-    "supertest": "1"
+    "version": "6, 7"
   },
   "dependencies": {
-    "debug": "^2.2.0",
-    "koa-locales": "^1.5.1"
+    "debug": "^2.6.0",
+    "koa-locales": "^1.5.2"
   },
-  "eggPlugin": {
-    "name": "i18n"
+  "devDependencies": {
+    "autod": "^2.7.1",
+    "egg": "^0.7.0",
+    "egg-bin": "^1.10.0",
+    "egg-ci": "^1.1.0",
+    "egg-mock": "^2.0.0",
+    "eslint": "^3.13.1",
+    "eslint-config-egg": "^3.2.0",
+    "pedding": "^1.1.0",
+    "supertest": "^2.0.1"
   }
 }

@@ -18,7 +18,6 @@ class View {
 }
 
 class CustomApplication extends egg.Application {
-
   get [Symbol.for('egg#eggPath')]() {
     return EGG_PATH;
   }
