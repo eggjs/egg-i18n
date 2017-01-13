@@ -58,6 +58,32 @@ describe('test/i18n.test.js', () => {
     });
   });
 
+  describe('ctx.locale', () => {
+    let app;
+    before(() => {
+      app = mm.app({
+        baseDir: 'apps/i18n',
+        plugin: 'i18n',
+      });
+      return app.ready();
+    });
+    after(() => app.close());
+
+    it('should get request default locale', () => {
+      const ctx = app.mockContext();
+      assert(ctx.locale === 'en-us');
+    });
+
+    it('should get request locale from cookie', () => {
+      const ctx = app.mockContext({
+        headers: {
+          Cookie: 'locale=zh-CN',
+        },
+      });
+      assert(ctx.locale === 'zh-cn');
+    });
+  });
+
   describe('loader', function() {
     let app;
     before(done => {
