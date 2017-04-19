@@ -116,6 +116,13 @@ describe('test/i18n.test.js', () => {
         .expect('true', done);
     });
 
+    it('should return locale from locales2', function(done) {
+      request(app.callback())
+        .get('/?key=locales2')
+        .set('Accept-Language', 'zh-CN,zh;q=0.5')
+        .expect('true', done);
+    });
+
     describe('view renderString with __(key, value)', () => {
       it('should render with default locale: en-US', function(done) {
         request(app.callback())
@@ -183,5 +190,4 @@ describe('test/i18n.test.js', () => {
       });
     });
   });
-
 });

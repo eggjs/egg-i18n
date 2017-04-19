@@ -1,8 +1,6 @@
 'use strict';
 
-const path = require('path');
-
-module.exports = appInfo => {
+module.exports = () => {
 
   const exports = {};
 
@@ -10,7 +8,7 @@ module.exports = appInfo => {
    * I18n options
    * @member Config#i18n
    * @property {String} defaultLocale - 默认语言是美式英语，毕竟支持多语言，基本都是以英语为母板
-   * @property {String} dir - 多语言资源文件存放路径，不建议修改
+   * @property {Array} dirs - 多语言资源文件存放路径，不建议修改
    * @property {String} queryField - 设置当前语言的 query 参数字段名，默认通过 `query.locale` 获取
    *   如果你想修改为 `query.lang`，那么请通过修改此配置实现
    * @property {String} cookieField - 如果当前请求用户语言有变化，都会设置到 cookie 中保持着，
@@ -20,7 +18,7 @@ module.exports = appInfo => {
    */
   exports.i18n = {
     defaultLocale: 'en_US',
-    dir: path.join(appInfo.baseDir, 'config/locales'),
+    dirs: [],
     queryField: 'locale',
     cookieField: 'locale',
     cookieMaxAge: '1y',
