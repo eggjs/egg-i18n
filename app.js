@@ -104,8 +104,9 @@ module.exports = function(app) {
    */
   app.config.i18n.functionName = '__';
 
+  /* istanbul ignore next */
+  app.config.i18n.dirs = Array.isArray(app.config.i18n.dirs) ? app.config.i18n.dirs : [];
   // 按 egg > 插件 > 框架 > 应用的顺序遍历 config/locales 目录，加载所有配置文件
-  app.config.i18n.dirs = app.config.i18n.dirs || [];
   for (const unit of app.loader.getLoadUnits()) {
     app.config.i18n.dirs.push(path.join(unit.path, 'config/locales'));
   }
