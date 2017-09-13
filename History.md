@@ -1,4 +1,10 @@
 
+1.2.0 / 2017-09-13
+==================
+
+**features**
+  * [[`1117129`](http://github.com/eggjs/egg-i18n/commit/1117129ce0153d317d376a2692b3de14b94a6717)] - feat: use config/locale/*.js as default I18N folder (#7) (tudou527 <<tudou527@users.noreply.github.com>>)
+
 1.1.1 / 2017-04-19
 ==================
 
