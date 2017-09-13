@@ -1,6 +1,7 @@
 'use strict';
 
 const locales = require('koa-locales');
+const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('egg:plugin:i18n');
 
@@ -11,10 +12,10 @@ const debug = require('debug')('egg:plugin:i18n');
  *
  * #### 语言文件存储路径
  *
- * 统一存放在 `config/locales/*.js` 下，如包含英文，简体中文，繁体中文的语言文件：
+ * 统一存放在 `config/locale/*.js` 下（ 兼容`config/locales/*.js` ），如包含英文，简体中文，繁体中文的语言文件：
  *
  * ```
- * - config/locales/
+ * - config/locale/
  *   - en-US.js
  *   - zh-CN.js
  *   - zh-TW.js
@@ -26,7 +27,7 @@ const debug = require('debug')('egg:plugin:i18n');
  * #### I18n 文件内容
  *
  * ```js
- * // config/locales/zh-CN.js
+ * // config/locale/zh-CN.js
  * module.exports = {
  *   "Email": "邮箱",
  *   "Welcome back, %s!": "欢迎回来, %s!",
@@ -35,7 +36,7 @@ const debug = require('debug')('egg:plugin:i18n');
  * ```
  *
  * ```js
- * // config/locales/en-US.js
+ * // config/locale/en-US.js
  * module.exports = {
  *   "Email": "Email",
  * };
@@ -43,7 +44,7 @@ const debug = require('debug')('egg:plugin:i18n');
  * 或者也可以用 JSON 格式的文件:
  *
  * ```js
- * // config/locales/zh-CN.json
+ * // config/locale/zh-CN.json
  * {
  *   "email": "邮箱",
  *   "login": "帐号",
@@ -106,9 +107,19 @@ module.exports = function(app) {
 
   /* istanbul ignore next */
   app.config.i18n.dirs = Array.isArray(app.config.i18n.dirs) ? app.config.i18n.dirs : [];
-  // 按 egg > 插件 > 框架 > 应用的顺序遍历 config/locales 目录，加载所有配置文件
+  // 按 egg > 插件 > 框架 > 应用的顺序遍历 config/locale(config/locales) 目录，加载所有配置文件
   for (const unit of app.loader.getLoadUnits()) {
-    app.config.i18n.dirs.push(path.join(unit.path, 'config/locales'));
+    const localePath = path.join(unit.path, 'config/locale');
+
+    /**
+     * 优先选择 `config/locale` 目录下的多语言文件
+     * 避免 2 个目录同时存在时可能导致的冲突
+     */
+    if (fs.existsSync(localePath)) {
+      app.config.i18n.dirs.push(localePath);
+    } else {
+      app.config.i18n.dirs.push(path.join(unit.path, 'config/locales'));
+    }
   }
 
   debug('app.config.i18n.dirs:', app.config.i18n.dirs);

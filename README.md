@@ -24,7 +24,7 @@
 
 ## 功能
 
-- 支持多种语言独立配置，统一存放在 config/locales/*.js 下；
+- 支持多种语言独立配置，统一存放在 config/locale/*.js 下（ 兼容`config/locales/*.js` ）；
 - 提供 Middleware 为 View 提供 `__`, `gettext` 函数获取多语言文案；
 - 基于 URL 参数 `locale` 修改语言显示，同时会记录到 Cookie，下次请求会用 Cookie 里面的语言方案。
 
@@ -61,7 +61,7 @@ exports.i18n = {
 ## 编写你的 I18n 多语言文件
 
 ```js
-// config/locales/zh-CN.js
+// config/locale/zh-CN.js
 module.exports = {
   "Email": "邮箱",
   "Welcome back, %s!": "欢迎回来，%s!",
@@ -70,7 +70,7 @@ module.exports = {
 ```
 
 ```js
-// config/locales/en-US.js
+// config/locale/en-US.js
 module.exports = {
   "Email": "Email",
 };
@@ -79,7 +79,7 @@ module.exports = {
 或者也可以用 JSON 格式的文件：
 
 ```json
-// config/locales/zh-CN.json
+// config/locale/zh-CN.json
 {
   "email": "邮箱",
   "login": "帐号",
@@ -89,7 +89,7 @@ module.exports = {
 
 ## 使用 I18n 函数获取语言文本
 
-I18n 为你提供 `__` (Alias: `gettext`) 函数，让你可以轻松获得 locales 文件夹下面的多语言文本。
+I18n 为你提供 `__` (Alias: `gettext`) 函数，让你可以轻松获得 locale 文件夹下面的多语言文本。
 
 > NOTE: __ 是两个下划线哦！
 

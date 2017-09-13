@@ -11,4 +11,8 @@ module.exports = {
     enable: true,
     path: path.join(__dirname, '../b'),
   },
+  c: {
+    enable: true,
+    path: path.join(__dirname, '../c'),
+  },
 };
