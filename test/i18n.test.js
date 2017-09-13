@@ -123,6 +123,13 @@ describe('test/i18n.test.js', () => {
         .expect('true', done);
     });
 
+    it('should use locale/ when both exist locales/ and locale/', function(done) {
+      request(app.callback())
+        .get('/?key=pluginC')
+        .set('Accept-Language', 'zh-CN,zh;q=0.5')
+        .expect('i18n form locale', done);
+    });
+
     describe('view renderString with __(key, value)', () => {
       it('should render with default locale: en-US', function(done) {
         request(app.callback())
