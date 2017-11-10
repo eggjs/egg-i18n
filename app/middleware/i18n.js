@@ -1,16 +1,15 @@
 'use strict';
 
 module.exports = () => {
-  return function* i18n(next) {
-    const ctx = this;
+  return function i18n(ctx, next) {
     function gettext() {
       return ctx.__.apply(ctx, arguments);
     }
-    this.locals = {
+    ctx.locals = {
       gettext,
       __: gettext,
     };
 
-    yield next;
+    return next();
   };
 };

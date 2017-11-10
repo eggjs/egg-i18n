@@ -15,4 +15,8 @@ module.exports = {
     enable: true,
     path: path.join(__dirname, '../c'),
   },
+  nunjucks: {
+    enable: true,
+    package: 'egg-view-nunjucks',
+  },
 };
