@@ -1,4 +1,10 @@
 
+2.0.0 / 2017-11-10
+==================
+
+**others**
+  * [[`80e591d`](http://github.com/eggjs/egg-i18n/commit/80e591d86eef8d92a8f8c6eef8d8d8fb00d9a1e2)] - refactor: use async function and support egg@2 (#8) (Yiyu He <<dead_horse@qq.com>>)
+
 1.2.0 / 2017-09-13
 ==================
 
