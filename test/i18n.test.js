@@ -4,7 +4,6 @@ const mm = require('egg-mock');
 const assert = require('assert');
 const pedding = require('pedding');
 const join = require('path').join;
-const request = require('supertest');
 
 describe('test/i18n.test.js', () => {
 
@@ -20,7 +19,7 @@ describe('test/i18n.test.js', () => {
     after(() => app.close());
 
     it('should return locale de', done => {
-      request(app.callback())
+      app.httpRequest()
         .get('/message?locale=de')
         .expect(200)
         .expect('Set-Cookie', /locale=de; path=\/; expires=[^;]+ GMT/)
@@ -39,7 +38,7 @@ describe('test/i18n.test.js', () => {
     });
 
     it('should return default locale en_US', function(done) {
-      request(app.callback())
+      app.httpRequest()
         .get('/message?locale=')
         .expect(200)
         .expect('Set-Cookie', /locale=en-us; path=\/; expires=[^;]+ GMT/)
@@ -96,35 +95,35 @@ describe('test/i18n.test.js', () => {
     after(() => app.close());
 
     it('should return locale from plugin a', function(done) {
-      request(app.callback())
+      app.httpRequest()
         .get('/?key=pluginA')
         .set('Accept-Language', 'zh-CN,zh;q=0.5')
         .expect('true', done);
     });
 
     it('should return locale from plugin b', function(done) {
-      request(app.callback())
+      app.httpRequest()
         .get('/?key=pluginB')
         .set('Accept-Language', 'zh-CN,zh;q=0.5')
         .expect('true', done);
     });
 
     it('should return locale from framework', function(done) {
-      request(app.callback())
+      app.httpRequest()
         .get('/?key=framework')
         .set('Accept-Language', 'zh-CN,zh;q=0.5')
         .expect('true', done);
     });
 
     it('should return locale from locales2', function(done) {
-      request(app.callback())
+      app.httpRequest()
         .get('/?key=locales2')
         .set('Accept-Language', 'zh-CN,zh;q=0.5')
         .expect('true', done);
     });
 
     it('should use locale/ when both exist locales/ and locale/', function(done) {
-      request(app.callback())
+      app.httpRequest()
         .get('/?key=pluginC')
         .set('Accept-Language', 'zh-CN,zh;q=0.5')
         .expect('i18n form locale', done);
@@ -132,7 +131,7 @@ describe('test/i18n.test.js', () => {
 
     describe('view renderString with __(key, value)', () => {
       it('should render with default locale: en-US', function(done) {
-        request(app.callback())
+        app.httpRequest()
           .get('/renderString')
           .expect(200)
           .expect('Set-Cookie', /locale=en-us; path=\/; expires=[^;]+ GMT/)
@@ -140,7 +139,7 @@ describe('test/i18n.test.js', () => {
       });
 
       it('should render with query locale: zh_CN', function(done) {
-        request(app.callback())
+        app.httpRequest()
           .get('/renderString?locale=zh_CN')
           .expect(200)
           .expect('Set-Cookie', /locale=zh-cn; path=\/; expires=[^;]+ GMT/)
@@ -152,21 +151,21 @@ describe('test/i18n.test.js', () => {
       // Accept-Language: zh-CN
       it('should render with Accept-Language: zh-CN,zh;q=0.5', function(done) {
         done = pedding(3, done);
-        request(app.callback())
+        app.httpRequest()
           .get('/renderString')
           .set('Accept-Language', 'zh-CN,zh;q=0.5')
           .expect(200)
           .expect('Set-Cookie', /locale=zh-cn; path=\/; expires=[^;]+ GMT/)
           .expect('<li>邮箱: </li>\n<li>fengmk2，今天过得如何？</li>\n<li>foo bar</li>\n', done);
 
-        request(app.callback())
+        app.httpRequest()
           .get('/renderString')
           .set('Accept-Language', 'zh-CN;q=1')
           .expect(200)
           .expect('Set-Cookie', /locale=zh-cn; path=\/; expires=[^;]+ GMT/)
           .expect('<li>邮箱: </li>\n<li>fengmk2，今天过得如何？</li>\n<li>foo bar</li>\n', done);
 
-        request(app.callback())
+        app.httpRequest()
           .get('/renderString')
           .set('Accept-Language', 'zh_cn')
           .expect(200)
@@ -175,7 +174,7 @@ describe('test/i18n.test.js', () => {
       });
 
       it('should render set cookie locale: zh-CN if query locale not equal to cookie', function(done) {
-        request(app.callback())
+        app.httpRequest()
           .get('/renderString?locale=en-US')
           .set('Cookie', 'locale=zh-CN')
           .expect(200)
@@ -184,7 +183,7 @@ describe('test/i18n.test.js', () => {
       });
 
       it('should render with cookie locale: zh-cn', () => {
-        return request(app.callback())
+        return app.httpRequest()
           .get('/renderString')
           .set('Cookie', 'locale=zh-cn')
           .expect(200)

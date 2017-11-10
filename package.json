@@ -51,7 +51,6 @@
     "egg-view-nunjucks": "^2.1.4",
     "eslint": "^4.10.0",
     "eslint-config-egg": "^5.1.1",
-    "pedding": "^1.1.0",
-    "supertest": "^3.0.0"
+    "pedding": "^1.1.0"
   }
 }

@@ -7,7 +7,6 @@ module.exports = async ctx => {
     notexists_key: ctx.__('key not exists'),
     empty_string: ctx.__(''),
     novalue: ctx.__('key %s ok'),
-    // __ 别名 gettext 也可以使用
     arguments3: ctx.gettext('%s %s %s', 1, 2, 3),
     arguments4: ctx.gettext('%s %s %s %s', 1, 2, 3, 4),
     arguments5: ctx.__('%s %s %s %s %s', 1, 2, 3, 4, 5),
