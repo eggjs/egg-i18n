@@ -6,7 +6,6 @@ const pedding = require('pedding');
 const join = require('path').join;
 
 describe('test/i18n.test.js', () => {
-
   describe('ctx.__(key, value)', () => {
     let app;
     before(done => {
@@ -22,7 +21,7 @@ describe('test/i18n.test.js', () => {
       app.httpRequest()
         .get('/message?locale=de')
         .expect(200)
-        .expect('Set-Cookie', /locale=de; path=\/; expires=[^;]+ GMT/)
+        .expect('Set-Cookie', /locale=de; path=\/; expires=[^;]+ GMT$/)
         .expect({
           message: 'Hallo fengmk2, wie geht es dir heute? Wie war dein 18.',
           empty: '',
@@ -41,7 +40,57 @@ describe('test/i18n.test.js', () => {
       app.httpRequest()
         .get('/message?locale=')
         .expect(200)
-        .expect('Set-Cookie', /locale=en-us; path=\/; expires=[^;]+ GMT/)
+        .expect('Set-Cookie', /locale=en-us; path=\/; expires=[^;]+ GMT$/)
+        .expect({
+          message: 'Hello fengmk2, how are you today? How was your 18.',
+          empty: '',
+          notexists_key: 'key not exists',
+          empty_string: '',
+          novalue: 'key %s ok',
+          arguments3: '1 2 3',
+          arguments4: '1 2 3 4',
+          arguments5: '1 2 3 4 5',
+          arguments6: '1 2 3 4 5. 6',
+          values: 'foo bar foo bar {2} {100}',
+        }, done);
+    });
+  });
+
+  describe('with cookieDomain', () => {
+    let app;
+    before(done => {
+      app = mm.app({
+        baseDir: 'apps/i18n-domain',
+        plugin: 'i18n',
+      });
+      app.ready(done);
+    });
+    after(() => app.close());
+
+    it('should return locale de', done => {
+      app.httpRequest()
+        .get('/message?locale=de')
+        .expect(200)
+        .expect('Set-Cookie', /locale=de; path=\/; expires=[^;]+ GMT; domain=.foo.com$/)
+        .expect({
+          message: 'Hallo fengmk2, wie geht es dir heute? Wie war dein 18.',
+          empty: '',
+          notexists_key: 'key not exists',
+          empty_string: '',
+          novalue: 'key %s ok',
+          arguments3: '1 2 3',
+          arguments4: '1 2 3 4',
+          arguments5: '1 2 3 4 5',
+          arguments6: '1 2 3 4 5. 6',
+          values: 'foo bar foo bar {2} {100}',
+        }, done);
+    });
+
+    it('should return default locale en_US', function(done) {
+      app.httpRequest()
+        .get('/message?locale=')
+        .expect(200)
+        .expect('Set-Cookie', /locale=en-us; path=\/; expires=[^;]+ GMT; domain=.foo.com$/)
         .expect({
           message: 'Hello fengmk2, how are you today? How was your 18.',
           empty: '',
