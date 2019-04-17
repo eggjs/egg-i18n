@@ -52,7 +52,7 @@ const debug = require('debug')('egg:plugin:i18n');
  * }
  * ```
  */
-module.exports = function(app) {
+module.exports = app => {
   /**
    * 如果开启了 I18n 多语言功能，那么会出现此 API，通过它可以获取到当前请求对应的本地化数据。
    *

@@ -24,8 +24,8 @@
 
 ## 功能
 
-- 支持多种语言独立配置，统一存放在 config/locale/*.js 下（ 兼容`config/locales/*.js` ）；
-- 提供 Middleware 为 View 提供 `__`, `gettext` 函数获取多语言文案；
+- 支持多种语言独立配置，统一存放在 config/locale/\*.js 下（ 兼容 `config/locales/*.js` ）；
+- 提供 Middleware 为 View 提供 `\_\_`, `gettext` 函数获取多语言文案；
 - 基于 URL 参数 `locale` 修改语言显示，同时会记录到 Cookie，下次请求会用 Cookie 里面的语言方案。
 
 ## 配置
@@ -51,6 +51,8 @@ exports.i18n = {
   queryField: 'locale',
   // Cookie 记录的 key, 默认："locale"
   cookieField: 'locale',
+  // Cookie 的 domain 配置，默认为空，代表当前域名有效
+  cookieDomain: '',
   // Cookie 默认 `1y` 一年后过期， 如果设置为 Number，则单位为 ms
   cookieMaxAge: '1y',
 };

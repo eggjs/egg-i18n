@@ -36,15 +36,15 @@
     "app.js"
   ],
   "ci": {
-    "version": "8, 9"
+    "version": "8, 10, 11"
   },
   "dependencies": {
     "debug": "^3.1.0",
-    "koa-locales": "^1.7.0"
+    "koa-locales": "^1.9.0"
   },
   "devDependencies": {
     "autod": "^2.10.1",
-    "egg": "next",
+    "egg": "^2.21.1",
     "egg-bin": "^4.3.5",
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.13.1",
