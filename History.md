@@ -1,4 +1,13 @@
 
+2.1.0 / 2019-04-28
+==================
+
+**features**
+  * [[`ce59330`](http://github.com/eggjs/egg-i18n/commit/ce59330ef1dc069f43ebde29f8fe345f6a4d186e)] - feat: support ctx.locale setter (#10) (Yiyu He <<dead_horse@qq.com>>)
+
+**others**
+  * [[`50322d6`](http://github.com/eggjs/egg-i18n/commit/50322d680e783b30cfed7ffb39e36d3edf2ed210)] - chore: add cookieDomain options description (#9) (fengmk2 <<fengmk2@gmail.com>>)
+
 2.0.0 / 2017-11-10
 ==================
 
