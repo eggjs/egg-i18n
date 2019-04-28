@@ -36,7 +36,7 @@
     "app.js"
   ],
   "ci": {
-    "version": "8, 10, 11"
+    "version": "8, 10, 12"
   },
   "dependencies": {
     "debug": "^3.1.0",
