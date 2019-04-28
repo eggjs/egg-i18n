@@ -6,17 +6,17 @@ const pedding = require('pedding');
 const join = require('path').join;
 
 describe('test/i18n.test.js', () => {
-  describe('ctx.__(key, value)', () => {
-    let app;
-    before(done => {
-      app = mm.app({
-        baseDir: 'apps/i18n',
-        plugin: 'i18n',
-      });
-      app.ready(done);
+  let app;
+  before(done => {
+    app = mm.app({
+      baseDir: 'apps/i18n',
+      plugin: 'i18n',
     });
-    after(() => app.close());
+    app.ready(done);
+  });
+  after(() => app.close());
 
+  describe('ctx.__(key, value)', () => {
     it('should return locale de', done => {
       app.httpRequest()
         .get('/message?locale=de')
@@ -243,6 +243,19 @@ describe('test/i18n.test.js', () => {
             assert(!setCookies.join(',').includes('locale='));
           });
       });
+    });
+  });
+
+  describe('ctx.locale', () => {
+    it('should locale work and can be override', () => {
+      const ctx = app.mockContext({
+        query: { locale: 'zh-cn' },
+      });
+      assert(ctx.locale === 'zh-cn');
+      ctx.locale = 'en-us';
+      assert(ctx.locale === 'en-us');
+      ctx.locale = null;
+      assert(ctx.locale === null);
     });
   });
 });
