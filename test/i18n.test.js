@@ -22,6 +22,12 @@ describe('test/i18n.test.js', () => {
         .get('/message?locale=de')
         .expect(200)
         .expect('Set-Cookie', /locale=de; path=\/; expires=[^;]+ GMT$/)
+        .expect(res => {
+          const cookie = res.headers['set-cookie'].join('|');
+          assert(cookie);
+          // don't set domain
+          assert(/\|locale=de; path=\/; expires=[\w, :]+ GMT$/.test(cookie));
+        })
         .expect({
           message: 'Hallo fengmk2, wie geht es dir heute? Wie war dein 18.',
           empty: '',
