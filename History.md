@@ -1,4 +1,14 @@
 
+2.1.1 / 2019-04-30
+==================
+
+**fixes**
+  * [[`4d1c463`](http://github.com/eggjs/egg-i18n/commit/4d1c4638ec3551735620e384a316c68656870442)] - fix: use ctx.__setLocale to set cookie (#12) (Yiyu He <<dead_horse@qq.com>>)
+
+**others**
+  * [[`cfd25db`](http://github.com/eggjs/egg-i18n/commit/cfd25db5d98bd9372a8b18a1e70207fc28ab0d7c)] - test: assert locale cookie without domain (#11) (fengmk2 <<fengmk2@gmail.com>>)
+  * [[`99c56c4`](http://github.com/eggjs/egg-i18n/commit/99c56c480a316aaaa5ae5442575fc78e42641909)] - test: node 12 (fengmk2 <<fengmk2@gmail.com>>)
+
 2.1.0 / 2019-04-28
 ==================
 
