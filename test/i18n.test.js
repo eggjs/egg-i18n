@@ -258,10 +258,14 @@ describe('test/i18n.test.js', () => {
         query: { locale: 'zh-cn' },
       });
       assert(ctx.locale === 'zh-cn');
+      assert(ctx.response.headers['set-cookie'].length === 1);
+      assert(ctx.response.headers['set-cookie'][0].match(/^locale=zh\-cn; path=\/; expires=[^;]+ GMT$/));
       ctx.locale = 'en-us';
+      assert(ctx.response.headers['set-cookie'].length === 1);
+      assert(ctx.response.headers['set-cookie'][0].match(/^locale=en\-us; path=\/; expires=[^;]+ GMT$/));
       assert(ctx.locale === 'en-us');
-      ctx.locale = null;
-      assert(ctx.locale === null);
+      assert(ctx.response.headers['set-cookie'].length === 1);
+      assert(ctx.response.headers['set-cookie'][0].match(/^locale=en\-us; path=\/; expires=[^;]+ GMT$/));
     });
   });
 });
